@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Math Fun for Kids</title>
+  <style>
+    body {
+      background: #e6f7ff;
+      text-align: center;
+      font-family: 'Comic Sans MS', cursive;
+      padding-top: 50px;
+    }
+    h1 {
+      font-size: 40px;
+      color: #004080;
+    }
+    button {
+      font-size: 24px;
+      margin: 10px;
+      padding: 10px 30px;
+      background-color: #66ccff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .feedback {
+      font-size: 28px;
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎲 Math Fun for Kids 🎲</h1>
+  <div id="question" style="font-size: 32px; margin: 20px;"></div>
+  <div>
+    <button id="btn0"></button>
+    <button id="btn1"></button>
+    <button id="btn2"></button>
+  </div>
+  <div id="feedback" class="feedback"></div>
+
+  <script>
+    let correctAnswer;
+
+    function generateQuestion() {
+      let a = Math.floor(Math.random() * 10);
+      let b = Math.floor(Math.random() * 10);
+      correctAnswer = a + b;
+      document.getElementById("question").innerText = `What is ${a} + ${b}?`;
+
+      let options = [correctAnswer, correctAnswer + 1, correctAnswer - 1];
+      options.sort(() => Math.random() - 0.5);
+
+      options.forEach((value, index) => {
+        let btn = document.getElementById(`btn${index}`);
+        btn.innerText = value;
+        btn.onclick = () => checkAnswer(value);
+      });
+
+      document.getElementById("feedback").innerText = '';
+    }
+
+    function checkAnswer(selected) {
+      const feedback = document.getElementById("feedback");
+      if (selected === correctAnswer) {
+        feedback.innerText = "🎉 Correct!";
+        feedback.style.color = "green";
+      } else {
+        feedback.innerText = "❌ Try Again!";
+        feedback.style.color = "red";
+      }
+      setTimeout(generateQuestion, 1000);
+    }
+
+    generateQuestion();
+  </script>
+</body>
+</html>
